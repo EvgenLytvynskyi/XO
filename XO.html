@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<style>
+    .conteiner {
+        width: 170px;
+        margin: auto;
+    }
+    
+    .player1 {
+        width: 50px;
+        height: 50px;
+        background: red;
+        display: inline-block;
+        border: 2px solid black;
+    }
+    
+    .player2 {
+        width: 50px;
+        height: 50px;
+        background: yellow;
+        display: inline-block;
+        border: 2px solid black;
+    }
+    
+    .box {
+        width: 50px;
+        height: 50px;
+        background: green;
+        display: inline-block;
+        border: 2px solid black;
+    }
+    
+    .box:hover {
+        border: 2px solid red;
+    }
+</style>
+
+<body>
+    <p class='puk'></p>
+    <div class='conteiner'>
+        <div class='box b'></div>
+        <div class='box b'></div>
+        <div class='box b'></div>
+        <div class='box b'></div>
+        <div class='box b'></div>
+        <div class='box b'></div>
+        <div class='box b'></div>
+        <div class='box b'></div>
+        <div class='box b'></div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script>
+	(function(){
+		var xo = {
+		
+		mass: [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]],
+
+		checkWiner: function(){
+            console.log(this);
+		for (var i = 0; i <xo.mass.length; i++){ 
+		if ($('div.b').eq(xo.mass[i][0]).hasClass('player1') && $('div.b').eq(xo.mass[i][1]).hasClass('player1') && $('div.b').eq(xo.mass[i][2]).hasClass('player1')){
+         		xo.rel();
+         		alert('red player win');
+         		break;     
+           }else if($('div.b').eq(xo.mass[i][0]).hasClass('player2') && $('div.b').eq(xo.mass[i][1]).hasClass('player2') && $('div.b').eq(xo.mass[i][2]).hasClass('player2')){
+         		xo.rel();
+         		alert('yellow player win');
+         		break;     
+		    };
+        };
+        },
+        move: function() {
+	    	var flag = 1;
+            $('.box').click(function () {
+                var ind = $('div').index(this);
+                if (flag == 1 && !$('div.b').eq(ind-1).hasClass('player2')) {
+                    $(this).addClass('player1');
+                    $(this).removeClass('box');
+                   	flag = 2;
+               } else if (flag == 2 && !$('div.b').eq(ind-1).hasClass('player1')) {
+                    $(this).addClass('player2');
+                    $(this).removeClass('box');
+                    flag = 1;
+               }
+            });
+            $('.box').on('click', this.checkWiner);
+        },
+		
+		rel: function() {
+            location.reload();
+        }
+        }
+        
+        xo.move();
+		})();  
+		
+/*
+var mass = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]];
+       var flag = 1;
+        
+        function checkPlayer1(){
+        for (var i = 0; i < mass.length; i++){ 
+   		if ($('div.b').eq(mass[i][0]).hasClass('player1') && $('div.b').eq(mass[i][1]).hasClass('player1') && $('div.b').eq(mass[i][2]).hasClass('player1')){
+         		rel();
+         		alert('red player win');
+         		break;     
+              };
+        	};
+        };
+        
+        function checkPlayer2(){
+        for (var i = 0; i < mass.length; i++){ 
+   		if ($('div.b').eq(mass[i][0]).hasClass('player2') && $('div.b').eq(mass[i][1]).hasClass('player2') && $('div.b').eq(mass[i][2]).hasClass('player2')){
+         		rel();
+         		alert('yellow player win');
+         		break;     
+              };
+        	};;
+        };
+	       
+        function move() {
+            $('.box').click(function () {
+                var ind = $('div').index(this);
+                if (flag == 1 && !$('div.b').eq(ind-1).hasClass('player2')) {
+                    $(this).addClass('player1');
+                    $(this).removeClass('box');
+                   	flag = 2;
+                    checkPlayer1();
+                } else if (flag == 2 && !$('div.b').eq(ind-1).hasClass('player1')) {
+                    $(this).addClass('player2');
+                    $(this).removeClass('box');
+                    flag = 1;
+                    checkPlayer2();
+                }
+            });
+        };
+
+
+        function rel() {
+            location.reload();
+        };
+*/     
+    </script>
+</body>
+
+</html>
